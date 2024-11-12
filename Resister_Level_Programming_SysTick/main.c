@@ -4,6 +4,7 @@
 
 #define RCC_APB2ENR 	(*(volatile unsigned int *)(RCC_BASE + 0x18))
 #define RCC_APB1ENR 	(*(volatile unsigned int *)(RCC_BASE + 0x1C))
+#define RCC_CFGR        (*(volatile unsigned int*)(RCC_BASE+0x04))
 
 #define GPIOC_CRH   	(*(volatile unsigned int *)(GPIOC_BASE + 0x04))
 #define GPIOC_ODR   	(*(volatile unsigned int *)(GPIOC_BASE + 0x0C))
