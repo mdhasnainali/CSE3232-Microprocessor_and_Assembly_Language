@@ -11,6 +11,12 @@
 #define TIM2_CR1 (*(volatile unsigned int*)(TIM2_BASE+0x00))
 
 
+void configure_clock(){
+	RCC_CFGR &= ~(3 << 0);
+	while((RCC_CFGR & (3 << 2)) != (0 << 2));
+}
+
+
 void delay(int milisecond) {
 	TIM2_PSC = 8000;	
 	TIM2_ARR = milisecond;		    
@@ -21,6 +27,8 @@ void delay(int milisecond) {
 }
 
 int main() {
+	configure_clock();
+
 	RCC_APB2ENR |= (1<<4);
 	RCC_APB1ENR |= 1;
 	
