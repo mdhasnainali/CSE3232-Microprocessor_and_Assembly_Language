@@ -1,5 +1,9 @@
 #include "stm32f10x.h"
 
+void configure_clock(){
+	RCC->CFGR &= ~(3 << 0);
+	while((RCC->CFGR & (3 << 2)) != (0 << 2));
+}
 
 void delay(int miliseconds){
 	SysTick->LOAD = miliseconds;
@@ -11,6 +15,8 @@ void delay(int miliseconds){
 
 
 int main(){
+	configure_clock();
+	
 	RCC->APB2ENR |= (1<<4);
 	GPIOC->CRH ^= (1<<22);
 	GPIOC->CRH = (3<<20);
