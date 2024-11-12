@@ -1,5 +1,9 @@
 #include "stm32f10x.h"
 
+void configure_clock(){
+	RCC->CFGR &= ~(3 << 0);
+	while((RCC->CFGR & (3 << 2)) != (0 << 2));
+}
 
 void delay(int milisecond) {
 	TIM2->PSC = 0x11940;	
@@ -15,6 +19,9 @@ void delay(int milisecond) {
 }
 
 int main() {
+
+	configure_clock();
+	
 	RCC->APB2ENR |= (1<<4);
 	RCC->APB1ENR |= 1;
 	
