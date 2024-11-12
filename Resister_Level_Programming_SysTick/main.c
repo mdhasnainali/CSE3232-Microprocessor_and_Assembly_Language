@@ -12,6 +12,12 @@
 #define SysTick_CTRL  (*(volatile unsigned int *)(SysTick_BASE + 0x00))
 
 
+void configure_clock(){
+	RCC_CFGR &= ~(3 << 0);
+	while((RCC_CFGR & (3 << 2)) != (0 << 2));
+}
+
+
 void delay(int miliseconds){
 	SysTick_LOAD = miliseconds;
 	SysTick_CTRL |= 0x5;
@@ -22,6 +28,8 @@ void delay(int miliseconds){
 
 
 int main(){
+	configure_clock();
+	
 	RCC_APB2ENR |= (1<<4);
 	GPIOC_CRH ^= (1<<22);
 	GPIOC_CRH = (3<<20);
